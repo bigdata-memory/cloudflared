@@ -1,0 +1,15 @@
+services:
+  cloudflared:
+    image: cftunnel
+    build:
+      context: .
+      dockerfile: Dockerfile.arm64.update
+    restart: unless-stopped
+    command: tunnel run
+    environment:
+      - TUNNEL_TOKEN=${TUNNEL_TOKEN}
+    depends_on:
+      - workcontainer
+
+  workcontainer:
+    image: alpine
